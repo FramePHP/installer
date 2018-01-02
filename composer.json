@@ -2,6 +2,7 @@
     "name": "frame-php/installer",
     "type": "project",
     "license": "MIT",
+    "description": "Main FramePHP system installer",
     "authors": [
         {
             "name": "Hilkiah Makemo",
