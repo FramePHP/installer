@@ -1,0 +1,13 @@
+{
+    "name": "frame-php/installer",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hilkiah Makemo",
+            "email": "hilkiah.makemo@skywest.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
