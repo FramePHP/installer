@@ -11,6 +11,6 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "frame-php/application":"1.0"
+        "frame-php/application":"^1.0"
     }
 }
