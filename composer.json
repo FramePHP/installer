@@ -9,6 +9,8 @@
             "email": "hilkiah.makemo@skywest.com"
         }
     ],
-    "minimum-stability": "dev",
-    "require": {}
+    "minimum-stability": "stable",
+    "require": {
+        "frame-php/application":"1.0"
+    }
 }
