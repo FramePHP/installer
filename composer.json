@@ -24,9 +24,9 @@
     },
     "scripts":{
         "post-create-project-cmd":[
-            "mv ./application/{.,}* ./",
-            "mv ./module-app/{.,}* ./app",
-            "mv ./module-sys/{.,}* ./sys"
+            "mv ./application/{.,}* ./ && rm ./application",
+            "mv ./module-app/{.,}* ./app && rm ./module-app",
+            "mv ./module-sys/{.,}* ./sys && rm ./module-sys"
         ],
         "post-update-cmd":[
             "mv ./application/{.,}* ./ || rm -rf ./vendor/frame-php/application/",
