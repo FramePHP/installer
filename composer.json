@@ -13,20 +13,11 @@
     "require": {
         "frame-php/application": "dev-master"
     },
-    "extra":{
-      "installer-paths":{
-        "./{$name}": [
-            "frame-php/application",
-            "frame-php/module-app",
-            "frame-php/module-sys"
-        ]
-      }
-    },
     "scripts":{
         "post-create-project-cmd":[
-            "mv ./application/{.,}* ./ && rm ./application",
-            "mv ./module-app/{.,}* ./app && rm ./module-app",
-            "mv ./module-sys/{.,}* ./sys && rm ./module-sys"
+            "mv ./vendor/frame-php/application/{.,}* ./ && rm ./application",
+            "mv ./vendor/frame-php/module-app/{.,}* ./app && rm ./module-app",
+            "mv ./vendor/frame-php/module-sys/{.,}* ./sys && rm ./module-sys"
         ],
         "post-update-cmd":[
             "@php \"!file_exists('vendor/frame-php/application/')\" || mv ./vendor/frame-php/application/{.,}* ./ || rm -rf ./vendor/frame-php/application/",
