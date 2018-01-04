@@ -15,14 +15,9 @@
     },
     "scripts":{
         "post-create-project-cmd":[
-            "mv ./vendor/frame-php/application/{.,}* ./ && rm ./application",
-            "mv ./vendor/frame-php/module-app/{.,}* ./app && rm ./module-app",
-            "mv ./vendor/frame-php/module-sys/{.,}* ./sys && rm ./module-sys"
-        ],
-        "post-update-cmd":[
-            "@php \"!file_exists('vendor/frame-php/application/')\" || mv ./vendor/frame-php/application/{.,}* ./ || rm -rf ./vendor/frame-php/application/",
-            "@php \"!file_exists('vendor/frame-php/module-app/')\" || mv .vendor/frame-php/module-app ./ || rm -rf ./vendor/frame-php/module-app/",
-            "@php \"!file_exists('vendor/frame-php/module-sys/')\" || mv .vendor/frame-php/module-sys ./ || rm -rf ./vendor/frame-php/module-sys/"
+            "@php \"is_dir(data) || is_dir(public)\" || cp -r ./vendor/frame-php/application/{.,}* ./",
+            "@php \"!is_dir(vendor/frame-php/application) || rm -rf ./vendor/frame-php/application",
+            "@php composer update"
         ]
     }
 }
