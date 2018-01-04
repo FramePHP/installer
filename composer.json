@@ -15,12 +15,25 @@
     },
     "extra":{
       "installer-paths":{
-        "./": "frame-php/application"
-      }  
+        "./{$name}": [
+            "frame-php/application",
+            "frame-php/module-app",
+            "frame-php/module-sys"
+        ]
+      }
     },
     "scripts":{
         "post-create-project-cmd":[
-            "mv ./frame-php/application/ ./"
+            "mv ./application/{.,}* ./",
+            "mv ./module-app/{.,}* ./app",
+            "mv ./module-sys/{.,}* ./sys"
+        ],
+        "post-update-cmd":[
+            "mv ./application/{.,}* ./ || rm -rf ./vendor/frame-php/application/",
+            "mv .vendor/frame-php/module-* ./ || rm -rf ./vendor/frame-php/module-sys/"
+        ],
+        "post-update-cmd": [
+            
         ]
     }
 }
