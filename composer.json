@@ -29,11 +29,9 @@
             "mv ./module-sys/{.,}* ./sys && rm ./module-sys"
         ],
         "post-update-cmd":[
-            "mv ./application/{.,}* ./ || rm -rf ./vendor/frame-php/application/",
-            "mv .vendor/frame-php/module-* ./ || rm -rf ./vendor/frame-php/module-sys/"
-        ],
-        "post-update-cmd": [
-            
+            "@php \"!file_exists('vendor/frame-php/application/')\" || mv ./vendor/frame-php/application/{.,}* ./ || rm -rf ./vendor/frame-php/application/",
+            "@php \"!file_exists('vendor/frame-php/module-app/')\" || mv .vendor/frame-php/module-app ./ || rm -rf ./vendor/frame-php/module-app/",
+            "@php \"!file_exists('vendor/frame-php/module-sys/')\" || mv .vendor/frame-php/module-sys ./ || rm -rf ./vendor/frame-php/module-sys/"
         ]
     }
 }
