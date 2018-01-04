@@ -13,9 +13,14 @@
     "require": {
         "frame-php/application": "dev-master"
     },
+    "extra":{
+      "installer-paths":{
+        "./": "frame-php/application"
+      }  
+    },
     "scripts":{
         "post-create-project-cmd":[
-            "mv vendor/frame-php/application/ ./"
+            "mv ./frame-php/application/ ./"
         ]
     }
 }
