@@ -17,4 +17,5 @@
         "post-create-project-cmd":[
             "mv vendor/frame-php/application/ ./"
         ]
+    }
 }
