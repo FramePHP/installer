@@ -11,6 +11,10 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "frame-php": "dev-master"
-    }
+        "frame-php/application": "dev-master"
+    },
+    "scripts":{
+        "post-create-project-cmd":[
+            "mv vendor/frame-php/application/ ./"
+        ]
 }
