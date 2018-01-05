@@ -16,6 +16,13 @@
         "frame-php/module-app": "dev-master",
         "frame-php/module-sys": "dev-master"
     },
+    "extra":{
+        "installer-paths": {
+            "./app": ["frame-php/module-app"],
+            "./sys": ["frame-php/module-sys"]
+            "./":["frame-php/application"]
+        }
+    },
     "scripts": {
         "moveFiles": [
             "@php -r \"require_once 'Install.php'; Install::PostCreateCMD();\""
