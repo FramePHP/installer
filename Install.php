@@ -40,7 +40,7 @@ class Install
             $path = $item->getRealPath(); 
             $name = $dest.$iterator->getSubPathName();
 
-            if(stripos($path,'.git') !== false) continue;
+            if(stripos($path,'.git') !== false) static::RmvDir($path);
             if(!file_exists($path) || file_exists($name)) continue;
 
             if ($item->isFile()){
@@ -49,12 +49,13 @@ class Install
             if ($item->isDir()){
                 mkdir($name, 0755, true);
             }
-            static::rrmdir($path);
+            if(!$iterator->valid()) rmdir($path);          
         }
+        static::RmvDir($source);
         print "Done!".PHP_EOL;
 
     }
-    public static function rrmdir($path) 
+    public static function RmvDir($path) 
     {
 
         $i = new DirectoryIterator($path);
@@ -63,9 +64,9 @@ class Install
             if($f->isFile()) {
                 unlink($f->getRealPath());
             } else if(!$f->isDot() && $f->isDir()) {
-                rrmdir($f->getRealPath());
-                rmdir($f->getRealPath());
+                static::RmvDir($f->getRealPath());                
             }
         }
+        rmdir($path);
     }
 }
