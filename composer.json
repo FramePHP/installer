@@ -19,7 +19,7 @@
     "extra":{
         "installer-paths": {
             "./app": ["frame-php/module-app"],
-            "./sys": ["frame-php/module-sys"]
+            "./sys": ["frame-php/module-sys"],
             "./":["frame-php/application"]
         }
     },
