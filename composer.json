@@ -15,8 +15,8 @@
     },
     "scripts":{
         "post-create-project-cmd":[
-            "@php \"require_once 'Install.php'",
-            "@php composer update"
+            "@php -r \"require_once 'Install.php'",
+            "@php -r composer update"
         ]
     }
 }
