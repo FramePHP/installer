@@ -40,8 +40,8 @@ class Install
             $path = $item->getRealPath(); 
             $name = $dest.$iterator->getSubPathName();
 
-            if(stripos($path,'.git') !== false) static::RmvDir($path);
-            if(!file_exists($path) || file_exists($name)) continue;
+            if(stripos($path,'.git') !== false) //static::RmvDir($path);
+            if(!file_exists($path) || file_exists($name) || is_dir($name)) continue;
 
             if ($item->isFile()){
                 rename($path, $name);
