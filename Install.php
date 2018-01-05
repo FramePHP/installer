@@ -3,7 +3,7 @@
 *
 */
 
-class Installer
+class Install
 {
     const BASE = __DIR__.'/';
     const VNDR = __DIR__.'/vendor/frame-php/';
