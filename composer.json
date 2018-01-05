@@ -20,8 +20,8 @@
         "installer-paths": {
             "./": [
                 "frame-php/module-app",
-                   "frame-php/module-sys",
-                   "frame-php/application"
+                "frame-php/module-sys",
+                "frame-php/application"
             ]
         }
     },
@@ -29,14 +29,14 @@
         "moveFiles": [
             "@php -r \"require_once 'Install.php'; Install::PostCreateCMD();\""
         ],
-        "trashFiles" : [
-            "@php composer dump-autoload -o"
+        "loadFiles" : [
+            "composer dump-autoload -o"
         ],
         "post-create-project-cmd": [
-            "@moveFiles", "@trashFiles"
+            "@moveFiles", "@loadFiles"
         ],
         "post-install-cmd": [
-            "@moveFiles", "@trashFiles"
+            "@moveFiles", "@loadFiles"
         ],
         "post-update-cmd": [
             "@post-install-cmd"
