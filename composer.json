@@ -18,7 +18,8 @@
         "moveFiles": [
             "@php -r \"require_once 'Install.php'; Install::PostCreateCMD();\""
         ],
-        "trashFiles" : [            
+        "trashFiles" : [
+            "@php composer dump-autoload -o"
         ],
         "post-create-project-cmd": [
             "@moveFiles", "@trashFiles"
