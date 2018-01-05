@@ -42,7 +42,7 @@ class Install
                 $file = $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
                 if(!file_exists($file) && file_exists($path)) rename($path, $file);
             }
-            rmdir($item->getPathName());
+            if(is_dir($path)) rmdir($path);
         }
     }
 }
