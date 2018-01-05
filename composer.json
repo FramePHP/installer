@@ -22,10 +22,10 @@
         "trashFiles" : [            
         ],
         "post-create-project-cmd": [
-            "@moveFiles @trashFiles"
+            "@moveFiles", "@trashFiles"
         ],
         "post-install-cmd": [
-            "@moveFiles @trashFiles"
+            "@moveFiles", "@trashFiles"
         ],
         "post-update-cmd": [
             "@post-install-cmd"
