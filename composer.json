@@ -19,8 +19,10 @@
             "@php -r \"require_once Install.php;\"",
             "@php -r \"Install::PostCreateCMD()\""
         ],
-        "trashFiles" : [
-            
+        "trashFiles" : [            
+        ],
+        "post-create-project-cmd": [
+            "@moveFiles @trashFiles"
         ],
         "post-install-cmd": [
             "@moveFiles @trashFiles"
