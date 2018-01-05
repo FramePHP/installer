@@ -33,15 +33,16 @@ class Install
         $director = new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS);
         $iterator = new \RecursiveIteratorIterator($director, \RecursiveIteratorIterator::SELF_FIRST);
         foreach ($iterator as $item ) {
-            $path = $item->getPathName();
+            $path = $item->getPathName(); 
+            if(stripos($path,'.git') !== false) continue;
             if ($item->isDir()) {
                 $folder = $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
-                if(!file_exists($folder) && file_exists($path)) mkdir($folder);
+                if(!is_dir($folder) && is_dir($path)) mkdir($folder);
             } else {
                 $file = $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
                 if(!file_exists($file) && file_exists($path)) rename($path, $file);
             }
-            // rmdir($item->getPathName());
+            rmdir($item->getPathName());
         }
     }
 }
