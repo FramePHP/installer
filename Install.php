@@ -7,8 +7,8 @@ class Install
 {
     const BASE = __DIR__.'/';
     const VNDR = __DIR__.'/vendor/frame-php/';
-    const APP  = __DIR__.'/module-sys/';
-    const SYS  = __DIR__.'/module-app/';
+    const APP  = __DIR__.'/app/site/';
+    const SYS  = __DIR__.'/sys/';
 
     public function __construct()
     {
@@ -18,31 +18,54 @@ class Install
     public static function PostCreateCMD()
     {
         if(realpath(self::VNDR.'application')){
-           self::CopyDir(realpath('vendor/frame-php/application'), '.');
+            self::CopyDir(realpath('vendor/frame-php/application'), self::BASE);
         }
         if(realpath(self::VNDR.'module-app')){
-           self::CopyDir(realpath('vendor/frame-php/module-app'), 'app');
+            self::CopyDir(realpath('vendor/frame-php/module-app'), self::APP);
         }
         if(realpath(self::VNDR.'module-sys')){
-           self::CopyDir(realpath('vendor/frame-php/module-sys'), 'sys');
+            self::CopyDir(realpath('vendor/frame-php/module-sys'), self::SYS);
         }
+
     }
 
     public static function CopyDir($source, $dest)
     {
         $director = new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS);
         $iterator = new \RecursiveIteratorIterator($director, \RecursiveIteratorIterator::SELF_FIRST);
+
+        print "Moving framework files into this folder: $dest ...";
         foreach ($iterator as $item ) {
-            $path = $item->getPathName(); 
+
+            $path = $item->getRealPath(); 
+            $name = $dest.$iterator->getSubPathName();
+
             if(stripos($path,'.git') !== false) continue;
-            if ($item->isDir()) {
-                $folder = $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
-                if(!is_dir($folder) && is_dir($path)) mkdir($folder);
-            } else {
-                $file = $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
-                if(!file_exists($file) && file_exists($path)) rename($path, $file);
+            if(!file_exists($path) || file_exists($name)) continue;
+
+            if ($item->isFile()){
+                rename($path, $name);
             }
-            if(is_dir($path)) rmdir($path);
+            if ($item->isDir()){
+                mkdir($name, 0755, true);
+            }
+            static::rrmdir($path);
+        }
+        print "Done!".PHP_EOL;
+
+    }
+    public static function rrmdir($path) 
+    {
+
+        $i = new DirectoryIterator($path);
+
+        foreach($i as $f) {
+            if($f->isFile()) {
+                unlink($f->getRealPath());
+            } else if(!$f->isDot() && $f->isDir()) {
+                rrmdir($f->getRealPath());
+                rmdir($f->getRealPath());
+            }
         }
     }
 }
