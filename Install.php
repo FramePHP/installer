@@ -3,7 +3,7 @@
 *
 */
 
-class Install
+class Installer
 {
     const BASE = __DIR__.'/';
     const VNDR = __DIR__.'/vendor/frame-php/';
@@ -33,12 +33,15 @@ class Install
         $director = new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS);
         $iterator = new \RecursiveIteratorIterator($director, \RecursiveIteratorIterator::SELF_FIRST);
         foreach ($iterator as $item ) {
+            $path = $item->getPathName();
             if ($item->isDir()) {
-                mkdir($dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+                $folder = $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
+                if(!file_exists($folder) && file_exists($path)) mkdir($folder);
             } else {
-                rename($item, $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+                $file = $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
+                if(!file_exists($file) && file_exists($path)) rename($path, $file);
             }
-            rmdir($item->getPathName());
+            // rmdir($item->getPathName());
         }
     }
 }
