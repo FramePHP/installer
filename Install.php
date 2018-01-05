@@ -2,17 +2,43 @@
 /**
 *
 */
-define('BASE_DIR', __DIR__.'/');
-define('APP_PATH', __DIR__.'/app/');
-define('SYS_PATH', __DIR__.'/sys/');
 
-$DeleteFiles = function($folder)
+class Install
 {
-  foreach (glob($folder.'/*', GLOB_NOSORT) as $file) {
-    if(stripos($file,'framework') !== false) return;
-    if(is_dir($file)) return $DeleteFiles($file);
-    if(stripos($file,'module-aop')) rename($file, APP_PATH.basename($file));
-    if(stripos($file,'module-sys')) rename($file, SYS_PATH.basename($file));
-  }
+    const BASE = __DIR__.'/';
+    const VNDR = __DIR__.'/vendor/frame-php/';
+    const APP  = __DIR__.'/module-sys/';
+    const SYS  = __DIR__.'/module-app/';
+
+    public function __construct()
+    {
+
+    }
+
+    public static function PostCreateCMD()
+    {
+        if(realpath(self::VNDR.'application')){
+           self::CopyDir(realpath('vendor/frame-php/application'), '.');
+        }
+        if(realpath(self::VNDR.'module-app')){
+           self::CopyDir(realpath('vendor/frame-php/module-app'), 'app');
+        }
+        if(realpath(self::VNDR.'module-sys')){
+           self::CopyDir(realpath('vendor/frame-php/module-sys'), 'sys');
+        }
+    }
+
+    public static function CopyDir($source, $dest)
+    {
+        $director = new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS);
+        $iterator = new \RecursiveIteratorIterator($director, \RecursiveIteratorIterator::SELF_FIRST);
+        foreach ($iterator as $item ) {
+            if ($item->isDir()) {
+                mkdir($dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+            } else {
+                rename($item, $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+            }
+            rmdir($item->getPathName());
+        }
+    }
 }
-$DeleteFiles('vendor/frame-php');
