@@ -29,5 +29,5 @@
             "@post-install-cmd"
         ]
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
