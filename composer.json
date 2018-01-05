@@ -16,7 +16,7 @@
     },
     "scripts": {
         "moveFiles": [
-            "@php -r \"require_once Install.php;\"",
+            "@php -r \"require_once 'Install.php';\"",
             "@php -r \"Install::PostCreateCMD()\""
         ],
         "trashFiles" : [            
