@@ -6,7 +6,7 @@ define('BASE_DIR', __DIR__.'/');
 define('APP_PATH', __DIR__.'/app/');
 define('SYS_PATH', __DIR__.'/sys/');
 
-var $DeleteFiles = function($folder)
+$DeleteFiles = function($folder)
 {
   foreach (glob($folder.'/*', GLOB_NOSORT) as $file) {
     if(stripos($file,'framework') !== false) return;
