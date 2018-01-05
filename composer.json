@@ -18,9 +18,11 @@
     },
     "extra":{
         "installer-paths": {
-            "./app": ["frame-php/module-app"],
-            "./sys": ["frame-php/module-sys"],
-            "./":["frame-php/application"]
+            "./": [
+                "frame-php/module-app",
+                   "frame-php/module-sys",
+                   "frame-php/application"
+            ]
         }
     },
     "scripts": {
