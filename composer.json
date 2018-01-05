@@ -1,47 +1,33 @@
-<?php
-/**
-*
-*/
-
-class Installer
 {
-    const BASE = __DIR__.'/';
-    const VNDR = __DIR__.'/vendor/frame-php/';
-    const APP  = __DIR__.'/module-sys/';
-    const SYS  = __DIR__.'/module-app/';
-
-    public function __construct()
-    {
-
-    }
-
-    public static function PostCreateCMD()
-    {
-        if(realpath(self::VNDR.'application')){
-           self::CopyDir(realpath('vendor/frame-php/application'), '.');
+    "name": "frame-php/installer",
+    "type": "project",
+    "license": "MIT",
+    "description": "Main FramePHP installer",
+    "authors": [
+        {
+            "name": "Hilkiah Makemo",
+            "email": "hilkiah.makemo@skywest.com"
         }
-        if(realpath(self::VNDR.'module-app')){
-           self::CopyDir(realpath('vendor/frame-php/module-app'), 'app');
-        }
-        if(realpath(self::VNDR.'module-sys')){
-           self::CopyDir(realpath('vendor/frame-php/module-sys'), 'sys');
-        }
-    }
-
-    public static function CopyDir($source, $dest)
-    {
-        $director = new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS);
-        $iterator = new \RecursiveIteratorIterator($director, \RecursiveIteratorIterator::SELF_FIRST);
-        foreach ($iterator as $item ) {
-            $path = $item->getPathName();
-            if ($item->isDir()) {
-                $folder = $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
-                if(!file_exists($folder) && file_exists($path)) mkdir($folder);
-            } else {
-                $file = $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
-                if(!file_exists($file) && file_exists($path)) rename($path, $file);
-            }
-            // rmdir($item->getPathName());
-        }
-    }
+    ],
+    "require-dev": {
+    },
+    "require": {
+        "frame-php/application": "dev-master"
+    },
+    "scripts": {
+        "moveFiles": [
+            "@php -r \"require_once Install.php;\"",
+            "@php -r \"Install::PostCreateCMD()"
+        ],
+        "trashFiles" : [
+            
+        ],
+        "post-install-cmd": [
+            "@moveFiles @trashFiles"
+        ],
+        "post-update-cmd": [
+            "@post-install-cmd"
+        ]
+    },
+    "minimum-stability": "dev"
 }
