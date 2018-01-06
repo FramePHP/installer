@@ -34,13 +34,13 @@ class Command
     public static function PostUpdateCMD()
     {
         print "Deleting duplicate files from vendor folder ... ".PHP_EOL;
-        if($application = realpath(BASE.'vendor/frame-php/application')){
+        if($application = realpath(self::BASE.'vendor/frame-php/application')){
             self::RmvDir($application);
         }
-        if($module_app = realpath(BASE.'vendor/frame-php/module-app')){
+        if($module_app = realpath(self::BASE.'vendor/frame-php/module-app')){
             self::RmvDir($module_app);
         }
-        if($module_sys = realpath(BASE.'vendor/frame-php/module-sys')){
+        if($module_sys = realpath(self::BASE.'vendor/frame-php/module-sys')){
             self::RmvDir($module_sys);
         }
         print "Done!".PHP_EOL;
@@ -77,35 +77,21 @@ class Command
         $i = new DirectoryIterator($path);
         
         foreach($i as $f) {
-            chmod($f->getRealPath(), 0777);
-            if($f->isDot()) continue;
+            
+            $name = $f->getRealPath();
+            if($f->isDot()) continue;            
+            chmod($name, 0777);
 
             if($f->isFile()) {
-                unlink($f->getRealPath());
+                unlink($name);
             }
-            elseif($f->isDir()) {
-                static::RmvDir($f->getRealPath());
+            elseif($f->isDir() && !$i->valid()) {
+                rmdir($name);                
             }
             else{
-                var_dump($f);
+                static::RmvDir($name);
             }
         }
-        if($i->valid()) static::RmvDir($path);
-        
-    }
-    
-    public function RmvDir($target)
-    {
-        if(is_dir($target)){
-            $files = glob( $target . '*', GLOB_MARK ); 
-
-            foreach( $files as $file ) {
-                static::RmvDir( $file );      
-            }
-            rmdir( $target );
-        } 
-        elseif(is_file($target)) {
-            unlink( $target );  
-        }
+        rmdir($path);        
     }
 }
