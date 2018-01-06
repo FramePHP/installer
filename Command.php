@@ -15,6 +15,17 @@ class Command
 
     }
 
+    public static function CheckInstallCMD(bool $reset = false)
+    {
+        # code...
+        if(!realpath(self::APP) || !realpath(self::SYS) || !realpath(self::BASE.'data') || $reset){
+            self::PostCreateCMD();
+        }
+        elseif(realpath(self::VNDR.'application') || realpath(self::VNDR.'module-app')){
+            self::PostUpdateCMD();
+        }
+    }
+
     public static function PostCreateCMD()
     {
 //         print "Rename install composer.json and README files...".PHP_EOL;
