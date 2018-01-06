@@ -51,33 +51,36 @@ class Command
     {
         $director = new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS);
         $iterator = new \RecursiveIteratorIterator($director, \RecursiveIteratorIterator::SELF_FIRST);
-        
+
         foreach ($iterator as $item ) {
 
             $path = $item->getRealPath();
             $name = $dest.$iterator->getSubPathName();
-
-            if(stripos($path,'.git') !== false) continue;//static::RmvDir($path);
-            if(!file_exists($path) || file_exists($name) || is_dir($name)) continue;
-
+            if($file = realpath($name)){
+                self::RmvDir($name);
+            }
             if ($item->isFile()){
                 rename($path, $name);
             }
-            if ($item->isDir()){
+            elseif ($item->isDir()){
                 mkdir($name, 0755, true);
             }
             if(!$iterator->valid()) rmdir($path);
         }
-        static::RmvDir($source);
+        self::RmvDir($source);
 
     }
     public static function RmvDir($path)
     {
+        try {
+            $i = new DirectoryIterator($path); 
+        } 
+        catch (Exception $e) {
+            return;
+        }
 
-        $i = new DirectoryIterator($path);
-        
         foreach($i as $f) {
-            
+
             $name = $f->getRealPath();
             if($f->isDot()) continue;            
             chmod($name, 0777);
