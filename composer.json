@@ -27,7 +27,7 @@
     },
     "scripts": {
         "moveFiles": [
-            "@php -r \"require_once 'Install.php'; Install::PostCreateCMD();\""
+            "@php -r \"require_once 'Command.php'; Command::PostCreateCMD();\""
         ],
         "loadFiles" : [
             "composer dump-autoload -o"
