@@ -3,7 +3,7 @@
 *
 */
 
-class Install
+class Command
 {
     const BASE = __DIR__.'/';
     const VNDR = __DIR__.'/vendor/frame-php/';
@@ -29,6 +29,20 @@ class Install
 
     }
 
+    public static function PostUpdateCMD()
+    {
+        if($application = realpath(BASE.'vendor/frame-php/application')){
+            self::RmvDir($application);
+        }
+        if($module_app = realpath(BASE.'vendor/frame-php/module-app')){
+            self::RmvDir($module_app);
+        }
+        if($module_sys = realpath(BASE.'vendor/frame-php/module-sys')){
+            self::RmvDir($module_sys);
+        }
+
+    }
+
     public static function CopyDir($source, $dest)
     {
         $director = new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS);
@@ -37,10 +51,10 @@ class Install
         print "Moving framework files into this folder: $dest ...";
         foreach ($iterator as $item ) {
 
-            $path = $item->getRealPath(); 
+            $path = $item->getRealPath();
             $name = $dest.$iterator->getSubPathName();
 
-            if(stripos($path,'.git') !== false) //static::RmvDir($path);
+            if(stripos($path,'.git') !== false) continue;//static::RmvDir($path);
             if(!file_exists($path) || file_exists($name) || is_dir($name)) continue;
 
             if ($item->isFile()){
@@ -49,13 +63,13 @@ class Install
             if ($item->isDir()){
                 mkdir($name, 0755, true);
             }
-            if(!$iterator->valid()) rmdir($path);          
+            if(!$iterator->valid()) rmdir($path);
         }
         static::RmvDir($source);
         print "Done!".PHP_EOL;
 
     }
-    public static function RmvDir($path) 
+    public static function RmvDir($path)
     {
 
         $i = new DirectoryIterator($path);
@@ -64,7 +78,7 @@ class Install
             if($f->isFile()) {
                 unlink($f->getRealPath());
             } else if(!$f->isDot() && $f->isDir()) {
-                static::RmvDir($f->getRealPath());                
+                static::RmvDir($f->getRealPath());
             }
         }
         rmdir($path);
