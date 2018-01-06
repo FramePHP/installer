@@ -15,23 +15,16 @@
         "frame-php/application": "dev-master"
     },
     "scripts": {
-        "movFiles": [
-            "@php -r \"require_once 'Command.php'; Command::PostCreateCMD();\""
-        ],
-        "dltFiles": [
-            "@php -r \"require_once 'Command.php'; Command::PostUpdateCMD();\""
-        ],
-        "loadFiles" : [
-            "composer dump-autoload -o"
-        ],
         "post-create-project-cmd": [
-            "@movFiles", "composer update", "@dltFiles", "@loadFiles"
+            "@php -r \"require_once 'Command.php'; Command::CheckInstallCMD(true);\"", 
+            "composer update"
         ],
         "post-install-cmd": [
-            "@movFiles", "@dltFiles", "@loadFiles"
+            "@post-create-project-cmd"
         ],
         "post-update-cmd": [
-            "@dltFiles", "@loadFiles"
+            "@php -r \"require_once 'Command.php'; Command::CheckInstallCMD();\"", 
+            "composer dumpautoload"
         ]
     },
     "minimum-stability": "dev"
