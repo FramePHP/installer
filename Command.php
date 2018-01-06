@@ -19,7 +19,7 @@ class Command
     {
         print "Rename install composer.json and README files...".PHP_EOL;
         rename(self::BASE.'composer.json', self::BASE.'installer.json');
-        rename(self::BASE.'README.md', self::BASE.'installer.md');
+        rename(self::BASE.'README.md', self::BASE.'installed.md');
         print "Done!".PHP_EOL;
         
         print "Moving into project root, app and sys folders ... ".PHP_EOL;
