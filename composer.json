@@ -12,18 +12,7 @@
     "require-dev": {
     },
     "require": {
-        "frame-php/application": "dev-master",
-        "frame-php/module-app": "dev-master",
-        "frame-php/module-sys": "dev-master"
-    },
-    "extra":{
-        "installer-paths": {
-            "./": [
-                "frame-php/module-app",
-                "frame-php/module-sys",
-                "frame-php/application"
-            ]
-        }
+        "frame-php/application": "dev-master"
     },
     "scripts": {
         "moveFiles": [
@@ -33,10 +22,10 @@
             "composer dump-autoload -o"
         ],
         "post-create-project-cmd": [
-            "@moveFiles", "@loadFiles", "composer update"
+            "@moveFiles", "composer update", "@loadFiles"
         ],
         "post-install-cmd": [
-            "@moveFiles", "@loadFiles", "composer update"
+            "@post-create-project-cmd", "@loadFiles"
         ],
         "post-update-cmd": [
             "@loadFiles"
