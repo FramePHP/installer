@@ -93,4 +93,19 @@ class Command
         if($i->valid()) static::RmvDir($path);
         
     }
+    
+    public function RmvDir($target)
+    {
+        if(is_dir($target)){
+            $files = glob( $target . '*', GLOB_MARK ); 
+
+            foreach( $files as $file ) {
+                static::RmvDir( $file );      
+            }
+            rmdir( $target );
+        } 
+        elseif(is_file($target)) {
+            unlink( $target );  
+        }
+    }
 }
