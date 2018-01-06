@@ -31,7 +31,7 @@
             "@movFiles", "@dltFiles", "@loadFiles"
         ],
         "post-update-cmd": [
-            "@movFiles", "@dltFiles", "@loadFiles"
+            "@dltFiles", "@loadFiles"
         ]
     },
     "minimum-stability": "dev"
