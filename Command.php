@@ -15,13 +15,13 @@ class Command
 
     }
 
-    public static function CheckInstallCMD($reset = false)
+    public static function CheckInstallCMD($reset = true)
     {
         # code...
         if(!realpath(self::APP) || !realpath(self::SYS) || !realpath(self::BASE.'data') || $reset){
             self::PostCreateCMD();
         }
-        elseif(realpath(self::VNDR.'application') || realpath(self::VNDR.'module-app')){
+        if(realpath(self::VNDR.'application') || realpath(self::VNDR.'module-app')){
             self::PostUpdateCMD();
         }
     }
@@ -72,6 +72,10 @@ class Command
 
             $path = $item->getRealPath();
             $name = $dest.$iterator->getSubPathName();
+            
+            if(strpos($path, ".git") !== false){
+                continue;
+            }
             if($file = realpath($name)){
                 self::RmvDir($name);
             }
