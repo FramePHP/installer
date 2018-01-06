@@ -17,6 +17,7 @@ class Command
 
     public static function PostCreateCMD()
     {
+        print "Moving into project root, app and sys folders ... ".PHP_EOL;
         if(realpath(self::VNDR.'application')){
             self::CopyDir(realpath('vendor/frame-php/application'), self::BASE);
         }
@@ -26,11 +27,13 @@ class Command
         if(realpath(self::VNDR.'module-sys')){
             self::CopyDir(realpath('vendor/frame-php/module-sys'), self::SYS);
         }
+        print "Done!".PHP_EOL;
 
     }
 
     public static function PostUpdateCMD()
     {
+        print "Deleting duplicate files from vendor folder ... ".PHP_EOL;
         if($application = realpath(BASE.'vendor/frame-php/application')){
             self::RmvDir($application);
         }
@@ -40,6 +43,7 @@ class Command
         if($module_sys = realpath(BASE.'vendor/frame-php/module-sys')){
             self::RmvDir($module_sys);
         }
+        print "Done!".PHP_EOL;
 
     }
 
@@ -47,8 +51,7 @@ class Command
     {
         $director = new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS);
         $iterator = new \RecursiveIteratorIterator($director, \RecursiveIteratorIterator::SELF_FIRST);
-
-        print "Moving files into this folder: $dest ... ".PHP_EOL;
+        
         foreach ($iterator as $item ) {
 
             $path = $item->getRealPath();
@@ -66,14 +69,13 @@ class Command
             if(!$iterator->valid()) rmdir($path);
         }
         static::RmvDir($source);
-        print "Done!".PHP_EOL;
 
     }
     public static function RmvDir($path)
     {
 
         $i = new DirectoryIterator($path);
-        print "Deleting files in this folder: $path ... ".PHP_EOL;
+        
         foreach($i as $f) {
             chmod($f->getRealPath(), 0777);
             if($f->isDot()) continue;
@@ -89,6 +91,6 @@ class Command
             }
         }
         if($i->valid()) static::RmvDir($path);
-        print "Done!".PHP_EOL;
+        
     }
 }
