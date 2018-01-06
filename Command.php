@@ -15,7 +15,7 @@ class Command
 
     }
 
-    public static function CheckInstallCMD(bool $reset = false)
+    public static function CheckInstallCMD(boolean $reset = false)
     {
         # code...
         if(!realpath(self::APP) || !realpath(self::SYS) || !realpath(self::BASE.'data') || $reset){
