@@ -33,13 +33,13 @@
             "composer dump-autoload -o"
         ],
         "post-create-project-cmd": [
-            "@moveFiles", "@loadFiles"
+            "@moveFiles", "@loadFiles", "composer update"
         ],
         "post-install-cmd": [
-            "@moveFiles", "@loadFiles"
+            "@moveFiles", "@loadFiles", "composer update"
         ],
         "post-update-cmd": [
-            "@post-install-cmd"
+            "@loadFiles"
         ]
     },
     "minimum-stability": "dev"
