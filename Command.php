@@ -48,7 +48,7 @@ class Command
         $director = new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS);
         $iterator = new \RecursiveIteratorIterator($director, \RecursiveIteratorIterator::SELF_FIRST);
 
-        print "Moving framework files into this folder: $dest ...";
+        print "Moving files into this folder: $dest ... ".PHP_EOL;
         foreach ($iterator as $item ) {
 
             $path = $item->getRealPath();
@@ -73,14 +73,22 @@ class Command
     {
 
         $i = new DirectoryIterator($path);
-
+        print "Deleting files in this folder: $path ... ".PHP_EOL;
         foreach($i as $f) {
+            chmod($f->getRealPath(), 0777);
+            if($f->isDot()) continue;
+
             if($f->isFile()) {
                 unlink($f->getRealPath());
-            } else if(!$f->isDot() && $f->isDir()) {
+            }
+            elseif($f->isDir()) {
                 static::RmvDir($f->getRealPath());
             }
+            else{
+                var_dump($f);
+            }
         }
-        rmdir($path);
+        if($i->valid()) static::RmvDir($path);
+        print "Done!".PHP_EOL;
     }
 }
