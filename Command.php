@@ -35,13 +35,13 @@ class Command
         
         print "Moving into project root, app and sys folders ... ".PHP_EOL;
         if(realpath(self::VNDR.'application')){
-            self::CopyDir(realpath('vendor/frame-php/application'), self::BASE);
+            self::CopyDir(realpath('vendor/frame-php/application'), SELF::BASE);
         }
         if(realpath(self::VNDR.'module-app')){
-            self::CopyDir(realpath('vendor/frame-php/module-app'), self::APP);
+            self::CopyDir(realpath('vendor/frame-php/module-app'), SELF::APP);
         }
         if(realpath(self::VNDR.'module-sys')){
-            self::CopyDir(realpath('vendor/frame-php/module-sys'), self::SYS);
+            self::CopyDir(realpath('vendor/frame-php/module-sys'), SELF::SYS);
         }
         print "Done!".PHP_EOL;
 
@@ -51,13 +51,13 @@ class Command
     {
         print "Deleting duplicate files from vendor folder ... ".PHP_EOL;
         if($application = realpath(self::BASE.'vendor/frame-php/application')){
-            self::RmvDir($application);
+            self::RmvDir($application, 'application');
         }
         if($module_app = realpath(self::BASE.'vendor/frame-php/module-app')){
-            self::RmvDir($module_app);
+            self::RmvDir($module_app, 'module-app');
         }
         if($module_sys = realpath(self::BASE.'vendor/frame-php/module-sys')){
-            self::RmvDir($module_sys);
+            self::RmvDir($module_sys, 'module-sys');
         }
         print "Done!".PHP_EOL;
 
@@ -65,6 +65,7 @@ class Command
 
     public static function CopyDir($source, $dest)
     {
+        if(!$source) return;
         $director = new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS);
         $iterator = new \RecursiveIteratorIterator($director, \RecursiveIteratorIterator::SELF_FIRST);
 
@@ -90,10 +91,10 @@ class Command
         self::RmvDir($source);
 
     }
-    public static function RmvDir($path)
+    public static function RmvDir($folder, $skip = null)
     {
         try {
-            $i = new DirectoryIterator($path); 
+            $i = new DirectoryIterator($folder); 
         } 
         catch (Exception $e) {
             return;
@@ -101,20 +102,28 @@ class Command
 
         foreach($i as $f) {
 
-            $name = $f->getRealPath();
-            if($f->isDot()) continue;            
-            chmod($name, 0777);
+            $path = $f->getRealPath();
+            $name = $f->getBasename();
+
+            if($f->isDot()){
+                continue; 
+            }
+
+            chmod($path, 0777);
 
             if($f->isFile()) {
-                unlink($name);
+                unlink($path);
             }
             elseif($f->isDir() && !$i->valid()) {
-                rmdir($name);                
+                rmdir($path);                
             }
             else{
                 static::RmvDir($name);
             }
         }
-        rmdir($path);        
+
+        if(is_array($skip) && in_array($name, $skip)) return;
+        if(!is_array($skip) && $skip == $name) return;
+        return rmdir($folder);
     }
 }
