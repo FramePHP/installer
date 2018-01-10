@@ -16,7 +16,7 @@
         "frame-php/module-app": "dev-master",
         "frame-php/module-sys": "dev-master"
     },
-    "extras": {
+    "extra": {
         "installer-paths": {
            "./{$name}": [
                "frame-php/module-sys",
@@ -26,10 +26,10 @@
         }
     },
     "scripts": {
-        "post-create-project-cmd": [ 
+        "post-create-project-cmd": [
             "@php -r \"is_dir('./app/site') || mkdir('./app/site/', 0775, true);\"",
             "mv ./module-app/. ./app/site/",
-            "mv ./module-sys/. ./sys/", 
+            "mv ./module-sys/. ./sys/",
             "mv ./application/. .",
             "composer update"
         ],
@@ -41,10 +41,10 @@
         "post-install-cmd": [
             "@post-create-project-cmd"
         ],
-        "post-update-cmd": [ 
-            "rm -rf vendor/frame-php/application/",
-            "rm -rf vendor/frame-php/module-sys/",
-            "rm -rf vendor/frame-php/module-app/",
+        "post-update-cmd": [
+            "rm -rf vendor/frame-php/application/*",
+            "rm -rf vendor/frame-php/module-sys/*",
+            "rm -rf vendor/frame-php/module-app/*",
             "composer dumpautoload"
         ]
     },
