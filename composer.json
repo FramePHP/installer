@@ -16,9 +16,9 @@
     },
     "scripts": {
         "post-create-project-cmd": [ 
-            "@php -r \"is_dir('./app/site');\" || mkdir ./app/site/",
+            "@php -r \"is_dir('./app/site') || mkdir('./app/site/', 0775, true);\"",
             "mv ./vendor/frame-php/module-app/ ./app/site/",
-            "mv ./vendor/frame-php/module-sys ./sys", 
+            "mv ./vendor/frame-php/module-sys/ ./sys", 
             "mv ./vendor/frame-php/application/ .",
             "composer update"
         ],
