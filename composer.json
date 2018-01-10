@@ -16,27 +16,18 @@
         "frame-php/module-app": "dev-master",
         "frame-php/module-sys": "dev-master"
     },
-    "extra": {
-        "installer-paths": {
-           "./{$name}": [
-               "frame-php/module-sys",
-               "frame-php/module-app",
-               "frame-php/application"
-           ]
-        }
-    },
     "scripts": {
         "post-create-project-cmd": [
             "@php -r \"is_dir('./app/site') || mkdir('./app/site/', 0775, true);\"",
-            "mv ./module-app/. ./app/site/",
-            "mv ./module-sys/. ./sys/",
-            "mv ./application/. .",
+            "mv ./vendor/frame-php/module-app/. ./app/site/",
+            "mv ./vendor/frame-php/module-sys/. ./sys/",
+            "mv ./vendor/frame-php/application/. .",
             "composer update"
         ],
         "pre-install-cmd": [
-            "rm -rf vendor/frame-php/application/",
-            "rm -rf vendor/frame-php/module-sys/",
-            "rm -rf vendor/frame-php/module-app/"
+            "rm -rf ./vendor/frame-php/application/",
+            "rm -rf ./vendor/frame-php/module-sys/",
+            "rm -rf ./vendor/frame-php/module-app/"
         ],
         "post-install-cmd": [
             "@post-create-project-cmd"
