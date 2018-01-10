@@ -17,15 +17,23 @@
     "scripts": {
         "post-create-project-cmd": [ 
             "@php -r \"is_dir('./app/site') || mkdir('./app/site/', 0775, true);\"",
-            "mv ./vendor/frame-php/module-app/ ./app/site",
-            "mv ./vendor/frame-php/module-sys/ ./sys", 
-            "mv ./vendor/frame-php/application/ .",
+            "mv ./vendor/frame-php/module-app/. ./app/site/",
+            "mv ./vendor/frame-php/module-sys/. ./sys/", 
+            "mv ./vendor/frame-php/application/. ./",
             "composer update"
+        ],
+        "pre-install-cmd": [
+            "rm -rf vendor/frame-php/application/",
+            "rm -rf vendor/frame-php/module-sys/",
+            "rm -rf vendor/frame-php/module-app/"
         ],
         "post-install-cmd": [
             "@post-create-project-cmd"
         ],
-        "post-update-cmd": [             
+        "post-update-cmd": [ 
+            "rm -rf vendor/frame-php/application",
+            "rm -rf vendor/frame-php/module-sys",
+            "rm -rf vendor/frame-php/module-app"
             "composer dumpautoload"
         ]
     },
