@@ -24,11 +24,6 @@
             "mv ./vendor/frame-php/application/. .",
             "composer update"
         ],
-        "pre-install-cmd": [
-            "rm -rf ./vendor/frame-php/application/",
-            "rm -rf ./vendor/frame-php/module-sys/",
-            "rm -rf ./vendor/frame-php/module-app/"
-        ],
         "post-install-cmd": [
             "@post-create-project-cmd"
         ],
