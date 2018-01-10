@@ -31,9 +31,9 @@
             "@post-create-project-cmd"
         ],
         "post-update-cmd": [ 
-            "rm -rf vendor/frame-php/application",
-            "rm -rf vendor/frame-php/module-sys",
-            "rm -rf vendor/frame-php/module-app"
+            "rm -rf vendor/frame-php/application/.",
+            "rm -rf vendor/frame-php/module-sys/.",
+            "rm -rf vendor/frame-php/module-app/.",
             "composer dumpautoload"
         ]
     },
