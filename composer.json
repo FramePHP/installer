@@ -15,15 +15,16 @@
         "frame-php/application": "dev-master"
     },
     "scripts": {
-        "post-create-project-cmd": [
-            "@php -r \"require_once 'Command.php'; Command::CheckInstallCMD(true);\"", 
+        "post-create-project-cmd": [ 
+            "mv ./vendor/frame-php/application/ ./",
+            "mv ./vendor/frame-php/module-sys/ ./sys",
+            "mv ./vendor/frame-php/module-app/ ./app/site", 
             "composer update"
         ],
         "post-install-cmd": [
             "@post-create-project-cmd"
         ],
-        "post-update-cmd": [
-            "@php -r \"require_once 'Command.php'; Command::CheckInstallCMD();\"", 
+        "post-update-cmd": [             
             "composer dumpautoload"
         ]
     },
