@@ -22,16 +22,13 @@
             "mv ./vendor/frame-php/module-app/. ./app/site/",
             "mv ./vendor/frame-php/module-sys/. ./sys/",
             "mv ./vendor/frame-php/application/. .",
+            "rm -rf vendor/frame-php/application/*",
+            "rm -rf vendor/frame-php/module-sys/*",
+            "rm -rf vendor/frame-php/module-app/*",
             "composer update"
         ],
         "post-install-cmd": [
             "@post-create-project-cmd"
-        ],
-        "post-update-cmd": [
-            "rm -rf vendor/frame-php/application/*",
-            "rm -rf vendor/frame-php/module-sys/*",
-            "rm -rf vendor/frame-php/module-app/*",
-            "composer dumpautoload"
         ]
     },
     "minimum-stability": "dev"
