@@ -16,9 +16,10 @@
     },
     "scripts": {
         "post-create-project-cmd": [ 
-            "mv ./vendor/frame-php/application/ ./",
-            "mv ./vendor/frame-php/module-sys/ ./sys",
-            "mv ./vendor/frame-php/module-app/ ./app/site", 
+            "@php -r \"file_exists('app/site');\" || mkdir app/site",
+            "mv ./vendor/frame-php/module-app/ ./app/site",
+            "mv ./vendor/frame-php/module-sys/ ./sys", 
+            "mv ./vendor/frame-php/application/ .",
             "composer update"
         ],
         "post-install-cmd": [
