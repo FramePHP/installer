@@ -21,7 +21,7 @@
             "@php -r \"is_dir('./app/site') || mkdir('./app/site/', 0775, true);\"",
             "mv ./vendor/frame-php/module-app/{.,}* ./app/site/ || true",
             "mv ./vendor/frame-php/module-sys/{.,}* ./sys/ || true",
-            "mv ./vendor/frame-php/application/{.,}* . || true",
+            "mv ./vendor/frame-php/application/{.,}* ./ || true",
             "rm -rf vendor/frame-php/application/ || true*",
             "rm -rf vendor/frame-php/module-sys/* || true",
             "rm -rf vendor/frame-php/module-app/* || true"
