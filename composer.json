@@ -17,26 +17,15 @@
         "frame-php/module-sys": "dev-master"
     },
     "scripts": {
-        "move-files-around": [
-          "@php -r \"is_dir('./app/site') || mkdir('./app/site/', 0775, true);\"",
-            "mv ./vendor/frame-php/module-app/{.,}* ./app/site/ || true",
-            "mv ./vendor/frame-php/module-sys/{.,}* ./sys/ || true",
-            "mv ./vendor/frame-php/application/{.,}* ./ || true"
-        ],
-        "delete-original-files": [
-            "rm -rf vendor/frame-php/application/ || true*",
-            "rm -rf vendor/frame-php/module-sys/* || true",
-            "rm -rf vendor/frame-php/module-app/* || true"
-        ],
         "post-create-project-cmd": [
-            "@move-files-around", 
+            "frame project", 
             "composer update"
         ],
         "post-install-cmd": [
-            "@post-create-project-cmd"
+            "frame install"
         ],
         "post-update-cmd": [
-            "@move-files-around",
+            "frame update",
             "composer dump-autoload"
         ]
     },
