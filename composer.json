@@ -29,5 +29,8 @@
             "composer dump-autoload"
         ]
     },
+    "bin": [
+        "bin/frame"
+    ],
     "minimum-stability": "dev"
 }
