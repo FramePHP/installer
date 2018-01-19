@@ -5,10 +5,10 @@
 
 class Command
 {
-    const BASE = __DIR__.'/';
-    const VNDR = __DIR__.'/vendor/frame-php/';
-    const APP  = __DIR__.'/app/site/';
-    const SYS  = __DIR__.'/sys/';
+    const BASE = __DIR__.'/../';
+    const VNDR = __DIR__.'/../vendor/frame-php/';
+    const APP  = __DIR__.'/../app/site/';
+    const SYS  = __DIR__.'/../sys/';
 
     public function __construct()
     {
