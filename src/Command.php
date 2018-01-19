@@ -1,4 +1,6 @@
 <?php
+
+namespace FramePHP\Cmd;
 /**
 *
 */
@@ -10,9 +12,13 @@ class Command
     const APP  = __DIR__.'/../app/site/';
     const SYS  = __DIR__.'/../sys/';
 
-    public function __construct()
-    {
+    private $args;
 
+    public function __construct($args)
+    {
+        $this->args = $args;
+
+        var_dump($this);
     }
 
     public static function CheckInstallCMD($reset = true)

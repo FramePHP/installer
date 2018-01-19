@@ -13,17 +13,20 @@
     },
     "require": {
     },
+    "autoload": {
+        "psr-4": {
+            "FramePHP\\" : "src/"
+        }
+    },
     "scripts": {
         "post-create-project-cmd": [
-            "frame project", 
-            "composer update"
+            "frame project"
         ],
         "post-install-cmd": [
             "frame install"
         ],
         "post-update-cmd": [
-            "frame update",
-            "composer dump-autoload"
+            "frame update"
         ]
     },
     "bin": [
